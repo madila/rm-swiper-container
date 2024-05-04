@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "rm/swiper-container",
+  "version": "0.1.0",
+  "title": "Swiper Container",
+  "category": "widgets",
+  "icon": "screenoptions",
+  "description": "Example block scaffolded with Create Block tool.",
+  "example": {},
+  "supports": {
+    "html": false,
+    "align": true,
+    "layout": {
+      "allowSizingOnChildren": true,
+      "default": {
+        "type": "flex",
+        "orientation": "horizontal",
+        "flexWrap": "nowrap"
+      }
+    }
+  },
+  "attributes": {
+    "slidesPerView": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "slides-per-view",
+      "default": 1
+    },
+    "loop": {
+      "type": "boolean",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "loop"
+    }
+  },
+  "textdomain": "swiper-container",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
