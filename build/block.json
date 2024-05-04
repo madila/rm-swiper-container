@@ -5,22 +5,29 @@
   "version": "0.1.0",
   "title": "Swiper Container",
   "category": "widgets",
-  "icon": "screenoptions",
+  "icon": "align-full-width",
   "description": "Example block scaffolded with Create Block tool.",
   "example": {},
   "supports": {
     "html": false,
     "align": true,
     "layout": {
-      "allowSizingOnChildren": true,
       "default": {
         "type": "flex",
         "orientation": "horizontal",
         "flexWrap": "nowrap"
       }
+    },
+    "color": {
+      "gradients": true,
+      "background": true
     }
   },
   "attributes": {
+    "align": {
+      "type": "string",
+      "default": ""
+    },
     "slidesPerView": {
       "type": "string",
       "source": "attribute",
@@ -33,6 +40,18 @@
       "source": "attribute",
       "selector": "swiper-container",
       "attribute": "loop"
+    },
+    "autoPlay": {
+      "type": "boolean",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "autoplay"
+    },
+    "speed": {
+      "type": "number",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "speed"
     }
   },
   "textdomain": "swiper-container",

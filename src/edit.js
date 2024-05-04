@@ -134,29 +134,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		blockCount: select( 'core/block-editor' ).getBlockCount( clientId ),
 	} ) );
 
-	const resizeSwiperSlides = () => {
-		if(swiper.current) {
-			setWidth(`${swiper.current.getBoundingClientRect().width}px`);
-		}
-	}
-
 	const previousBlockCount = useRef( blockCount );
-
-	const {isSidebarOpened} = useSelect( ( select ) => ({
-		isSidebarOpened: select('core/edit-post').isPluginSidebarOpened()
-	} 	) );
-
-	useEffect( () => {
-		const unsubscribe = subscribe( () => {
-			if ( needsUpdate !== isSidebarOpened ) {
-				setNeedsUpdate(true);
-			}
-		} );
-
-		return function cleanup() {
-			unsubscribe();
-		};
-	}, [] );
 
 	useEffect( () => {
 		if(!anchor) setAttributes( { anchor: clientId } );
@@ -167,7 +145,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		'loop': loop
 	});
 
-	const { children, ...innerBlocksProps } = useInnerBlocksProps(
+	const { children, className, ...innerBlocksProps } = useInnerBlocksProps(
 		blockProps,
 		{
 			allowedBlocks: ALLOWED_BLOCKS,
@@ -185,14 +163,21 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	}, [ blockCount, clientId, removeBlock ] );
 
-	useLayoutEffect( () => {
-		resizeSwiperSlides();
-	}, [ swiper, needsUpdate ] );
+	const resizeSwiperSlides = () => {
+		if(swiper.current) {
+			setWidth(`${swiper.current.getBoundingClientRect().width}px`);
+		}
+	}
 
 	useLayoutEffect(() => {
-		window.addEventListener("resize", resizeSwiperSlides );
+		const resizeObserver = new ResizeObserver((entries) => {
+			for (const entry of entries) {
+				resizeSwiperSlides()
+			}
+		});
+		resizeObserver.observe(swiper.current);
 		return () => {
-			window.removeEventListener("resize", resizeSwiperSlides );
+			resizeObserver.unobserve(swiper.current);
 		};
 	}, [swiper]);
 
@@ -218,7 +203,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 							   setAccentColor={(value) => {
 								   setAttributes({accentColor: value});
 							   }}/>
-			<div ref={swiper} className="wp-block-rm-swiper-block" style={swiperStyles}>
+			<div ref={swiper} className={`${className} wp-block-rm-swiper-container`} style={swiperStyles}>
 				<swiper-container {...innerBlocksProps}>
 					{children}
 				</swiper-container>
