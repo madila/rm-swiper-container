@@ -1,1 +1,1 @@
-.wp-site-blocks swiper-container{max-width:100%;transition:opacity .5s ease-out}.wp-site-blocks swiper-container:not(:defined){opacity:0}swiper-slide{align-items:center;display:flex;justify-content:center}
+.wp-site-blocks:not(.is-root-container) swiper-container{max-width:100%;transition:opacity .5s ease-out}.wp-site-blocks:not(.is-root-container) swiper-container:not(:defined){opacity:0}swiper-slide{align-items:center;display:flex;justify-content:center}
