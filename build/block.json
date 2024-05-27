@@ -21,7 +21,12 @@
     "color": {
       "gradients": true,
       "background": true
-    }
+    },
+    "dimensions": {
+      "aspectRatio": true,
+      "minHeight": true
+    },
+    "anchor": true
   },
   "attributes": {
     "align": {

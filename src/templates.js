@@ -9,4 +9,5 @@ export const FRAME_TEMPLATES = [
 
 export const ALLOWED_BLOCKS = [
 	'rm/swiper-slide',
+	'core/paragraph'
 ]

@@ -23,7 +23,7 @@ import { __experimentalNumberControl as NumberControl, ToggleControl, Panel, Pan
 
 import { DEFAULT_TEMPLATE, ALLOWED_BLOCKS } from './templates';
 
-import { useSelect, useDispatch, subscribe } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useLayoutEffect, useState, useRef } from '@wordpress/element';
 
 /**
@@ -150,6 +150,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		{
 			allowedBlocks: ALLOWED_BLOCKS,
 			template: DEFAULT_TEMPLATE,
+			orientation: 'horizontal'
 		}
 	);
 
@@ -204,7 +205,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 								   setAttributes({accentColor: value});
 							   }}/>
 			<div ref={swiper} className={`${className} wp-block-rm-swiper-container`} style={swiperStyles}>
-				<swiper-container {...innerBlocksProps}>
+				<swiper-container {...innerBlocksProps }>
 					{children}
 				</swiper-container>
 			</div>
