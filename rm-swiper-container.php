@@ -9,9 +9,12 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       swiper-container
+ * Github Plugin URI: madila/rm-swiper-container
+ * Primary Branch:    main
  *
- * @package CreateBlock
+ * @package Design System
  */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
