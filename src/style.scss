@@ -8,3 +8,21 @@
 .wp-block-rm-swiper-container {
 
 }
+
+
+.wp-site-blocks:not(.is-root-container) {
+  swiper-container {
+    max-width: 100%;
+    transition: opacity 0.5s ease-out;
+  }
+
+  swiper-container:not(:defined) {
+    opacity: 0;
+  }
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -32,7 +32,7 @@ export default function save( { attributes } ) {
 	const { children, ...innerBlocksProps } = useInnerBlocksProps.save( blockProps );
 
 	return (
-		<swiper-container { ...innerBlocksProps }>
+		<swiper-container id={anchor} { ...innerBlocksProps }>
 			{ children }
 		</swiper-container>
 	);
