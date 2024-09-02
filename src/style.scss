@@ -5,14 +5,11 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-rm-swiper-container {
-
-}
 
 
 .wp-site-blocks:not(.is-root-container) {
   swiper-container {
-    max-width: 100%;
+    max-width: 100vw;
     transition: opacity 0.5s ease-out;
   }
 
@@ -21,8 +18,6 @@
   }
 }
 
-swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+swiper-container[slides-per-view="auto"] swiper-slide {
+  width: auto;
 }

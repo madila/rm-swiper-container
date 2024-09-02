@@ -1,1 +1,23 @@
-.wp-block-rm-swiper-container{max-width:100vw;overflow:scroll}
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/editor.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-rm-swiper-container {
+  overflow: scroll;
+  max-width: 100vw;
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+swiper-slide .wp-block-cover {
+  min-width: 100%;
+}
+
+/*# sourceMappingURL=index.css.map*/

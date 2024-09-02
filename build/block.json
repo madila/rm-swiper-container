@@ -46,6 +46,13 @@
       "selector": "swiper-container",
       "attribute": "loop"
     },
+    "spaceBetween": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "space-between",
+      "default": "0"
+    },
     "autoPlay": {
       "type": "boolean",
       "source": "attribute",

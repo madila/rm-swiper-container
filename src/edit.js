@@ -17,9 +17,8 @@ import {
 	InspectorControls,
 	PanelColorSettings,
 } from '@wordpress/block-editor';
-import { store as editorStore } from '@wordpress/editor';
 
-import { __experimentalNumberControl as NumberControl, ToggleControl, Panel, PanelBody, PanelRow } from '@wordpress/components';
+import { __experimentalNumberControl as NumberControl, ToggleControl, Panel, PanelBody, __experimentalUnitControl as UnitControl } from '@wordpress/components';
 
 import { DEFAULT_TEMPLATE, ALLOWED_BLOCKS } from './templates';
 
@@ -70,22 +69,25 @@ function ColorGroupControl( { accentColor, setAccentColor } ) {
  *
  * @return {JSX.Element}                The control group.
  */
-function SwiperControl( { slidesPerView, setSlidesPerView, maxSlides, loop, setLoop } ) {
+function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxSlides, loop, setLoop , spaceBetween, setAutoPlay, autoPlay, speed, setSpeed} ) {
 	return (
 		<InspectorControls>
 			<Panel header="Swiper Settings">
 				<PanelBody title="Behaviour" initialOpen={ true }>
 					<NumberControl
-						help="Please select the slides per view"
+						help="Please select the slides per view. 0 for auto"
 						isShiftStepEnabled={ true }
 						shiftStep={ 1 }
 						max={maxSlides}
-						min={1}
+						min={ 0 }
 						labelPosition="top"
 						value={ slidesPerView }
 						label={ __( 'Slides per view (number)' ) }
 						onChange={ setSlidesPerView }
 					/>
+
+					<UnitControl label={__('Space between slides')} onChange={ setSpaceBetween } value={ spaceBetween } />
+
 					<ToggleControl
 						label="Loop?"
 						help={
@@ -95,6 +97,26 @@ function SwiperControl( { slidesPerView, setSlidesPerView, maxSlides, loop, setL
 						}
 						checked={ loop }
 						onChange={ setLoop }
+					/>
+					<ToggleControl
+						label="Autoplay?"
+						help={
+							autoPlay
+								? 'Swiper will start automatically'
+								: 'Swiper will be manually controlled.'
+						}
+						checked={ autoPlay }
+						onChange={ setAutoPlay }
+					/>
+					<NumberControl
+						isShiftStepEnabled={ true }
+						shiftStep={ 100 }
+						max={20000}
+						min={100}
+						labelPosition="top"
+						value={ speed }
+						label={ __( 'Autoplay speed' ) }
+						onChange={ setSpeed }
 					/>
 				</PanelBody>
 			</Panel>
@@ -120,11 +142,13 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		anchor,
 		slidesPerView,
 		accentColor,
+		autoPlay,
+		spaceBetween,
+		speed,
 		loop
 	} = attributes;
 
 	const [width, setWidth] = useState('auto');
-	const [needsUpdate, setNeedsUpdate] = useState(false);
 	const swiper = useRef(null);
 
 
@@ -140,10 +164,15 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		if(!anchor) setAttributes( { anchor: clientId } );
 	}, [] );
 
-	const blockProps = useBlockProps({
-		'slides-per-view': slidesPerView,
-		'loop': loop
-	});
+	let props = {
+		'slides-per-view':  parseInt(slidesPerView) > 0 ? slidesPerView:  'auto',
+		'autoplay': autoPlay,
+		'space-between': spaceBetween,
+		'speed': speed,
+		...loop
+	};
+
+	const blockProps = useBlockProps(props);
 
 	const { children, className, ...innerBlocksProps } = useInnerBlocksProps(
 		blockProps,
@@ -194,16 +223,29 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 				setLoop={(value) => {
 					setAttributes({loop: value})
 				}}
+				autoPlay={autoPlay}
+				setAutoPlay={(value) => {
+					setAttributes({autoPlay: value})
+				}}
 				maxSlides={blockCount}
 				slidesPerView={slidesPerView}
 				setSlidesPerView={(value) =>
 					setAttributes({slidesPerView: value})
 				}
+				spaceBetween={spaceBetween}
+				setSpaceBetween={(value) =>
+					setAttributes({spaceBetween: value})
+				}
+				speed={speed}
+				setSpeed={(value) =>
+					setAttributes({speed: value})
+				}
 			/>
-			<ColorGroupControl accentColor={accentColor}
-							   setAccentColor={(value) => {
-								   setAttributes({accentColor: value});
-							   }}/>
+			<ColorGroupControl
+				accentColor={accentColor}
+			   setAccentColor={(value) => {
+				   setAttributes({accentColor: value});
+			   }}/>
 			<div ref={swiper} className={`${className} wp-block-rm-swiper-container`} style={swiperStyles}>
 				<swiper-container {...innerBlocksProps }>
 					{children}

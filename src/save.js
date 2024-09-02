@@ -5,6 +5,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { useEffect, useLayoutEffect, useState, useRef } from '@wordpress/element';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -21,13 +22,22 @@ export default function save( { attributes } ) {
 		anchor,
 		slidesPerView,
 		accentColor,
+		speed,
+		autoPlay,
+		spaceBetween,
 		loop
 	} = attributes;
 
-	const blockProps = useBlockProps.save( {
-		'slides-per-view': slidesPerView,
-		'loop': loop
-	} );
+
+	let props = {
+		'slides-per-view':  parseInt(slidesPerView) > 0 ? slidesPerView:  'auto',
+		'autoplay': autoPlay,
+		'space-between': spaceBetween,
+		...speed,
+		...loop
+	};
+
+	const blockProps = useBlockProps.save(props);
 
 	const { children, ...innerBlocksProps } = useInnerBlocksProps.save( blockProps );
 
