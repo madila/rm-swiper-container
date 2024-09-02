@@ -40,12 +40,6 @@
       "attribute": "slides-per-view",
       "default": 1
     },
-    "loop": {
-      "type": "boolean",
-      "source": "attribute",
-      "selector": "swiper-container",
-      "attribute": "loop"
-    },
     "spaceBetween": {
       "type": "string",
       "source": "attribute",
@@ -59,11 +53,18 @@
       "selector": "swiper-container",
       "attribute": "autoplay"
     },
-    "speed": {
-      "type": "number",
+    "loop": {
+      "type": "boolean",
       "source": "attribute",
       "selector": "swiper-container",
-      "attribute": "speed"
+      "attribute": "loop"
+    },
+    "speed": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "speed",
+      "default": "300"
     }
   },
   "textdomain": "swiper-container",

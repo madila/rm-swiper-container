@@ -9,15 +9,10 @@
 
 .wp-site-blocks:not(.is-root-container) {
   swiper-container {
-    max-width: 100vw;
     transition: opacity 0.5s ease-out;
   }
 
   swiper-container:not(:defined) {
     opacity: 0;
   }
-}
-
-swiper-container[slides-per-view="auto"] swiper-slide {
-  width: auto;
 }

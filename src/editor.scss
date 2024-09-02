@@ -4,18 +4,15 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+.wp-block-rm-swiper-container__outer-wrapper {
+    overflow-x: scroll;
+}
+
 .wp-block-rm-swiper-container {
-    overflow: scroll;
-    max-width: 100vw;
+    display: grid !important;
+    grid-template-columns: repeat(var(--slides), var(--per-view));
+    gap: var(--space-between) !important;
+    max-width: var(--slider-width);
+    width: var(--slider-width);
 }
 
-
-swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .wp-block-cover {
-        min-width: 100%;
-    }
-}

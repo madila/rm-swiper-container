@@ -33,8 +33,8 @@ export default function save( { attributes } ) {
 		'slides-per-view':  parseInt(slidesPerView) > 0 ? slidesPerView:  'auto',
 		'autoplay': autoPlay,
 		'space-between': spaceBetween,
-		...speed,
-		...loop
+		'speed': speed,
+		'loop': loop,
 	};
 
 	const blockProps = useBlockProps.save(props);

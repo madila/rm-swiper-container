@@ -12,21 +12,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Edit)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./templates */ "./src/templates.js");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./templates */ "./src/templates.js");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
 /**
  * Retrieves the translation of text.
  *
@@ -63,20 +62,21 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {JSX.Element}                The control group.
  */
+
 function ColorGroupControl({
   accentColor,
   setAccentColor
 }) {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
-    key: "setting"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.PanelColorSettings, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Accent color'),
-    colorSettings: [{
-      value: accentColor,
-      onChange: setAccentColor,
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Accent color')
-    }]
-  }));
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.PanelColorSettings, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Accent color'),
+      colorSettings: [{
+        value: accentColor,
+        onChange: setAccentColor,
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Accent color')
+      }]
+    })
+  }, "setting");
 }
 
 /**
@@ -101,45 +101,51 @@ function SwiperControl({
   speed,
   setSpeed
 }) {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Panel, {
-    header: "Swiper Settings"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
-    title: "Behaviour",
-    initialOpen: true
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
-    help: "Please select the slides per view. 0 for auto",
-    isShiftStepEnabled: true,
-    shiftStep: 1,
-    max: maxSlides,
-    min: 0,
-    labelPosition: "top",
-    value: slidesPerView,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Slides per view (number)'),
-    onChange: setSlidesPerView
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalUnitControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Space between slides'),
-    onChange: setSpaceBetween,
-    value: spaceBetween
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
-    label: "Loop?",
-    help: loop ? 'Swiper will continue after the last slide.' : 'Swiper will stop at the last slide.',
-    checked: loop,
-    onChange: setLoop
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
-    label: "Autoplay?",
-    help: autoPlay ? 'Swiper will start automatically' : 'Swiper will be manually controlled.',
-    checked: autoPlay,
-    onChange: setAutoPlay
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
-    isShiftStepEnabled: true,
-    shiftStep: 100,
-    max: 20000,
-    min: 100,
-    labelPosition: "top",
-    value: speed,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Autoplay speed'),
-    onChange: setSpeed
-  }))));
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
+      header: "Swiper Settings",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: "Behaviour",
+        initialOpen: true,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalNumberControl, {
+          help: "Please select the slides per view. 0 for auto",
+          isShiftStepEnabled: true,
+          shiftStep: 1,
+          max: maxSlides,
+          min: 0,
+          labelPosition: "top",
+          value: slidesPerView,
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Slides per view (number)'),
+          onChange: setSlidesPerView
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalUnitControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Space between slides'),
+          onChange: setSpaceBetween,
+          value: spaceBetween
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          __nextHasNoMarginBottom: true,
+          label: "Loop?",
+          help: loop ? 'Swiper will continue after the last slide.' : 'Swiper will stop at the last slide.',
+          checked: loop,
+          onChange: setLoop
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          __nextHasNoMarginBottom: true,
+          label: "Autoplay?",
+          help: autoPlay ? 'Swiper will start automatically' : 'Swiper will be manually controlled.',
+          checked: autoPlay,
+          onChange: setAutoPlay
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalNumberControl, {
+          isShiftStepEnabled: true,
+          shiftStep: 100,
+          max: 20000,
+          min: 100,
+          labelPosition: "top",
+          value: speed,
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Autoplay speed'),
+          onChange: setSpeed
+        })]
+      })
+    })
+  });
 }
 
 /**
@@ -152,7 +158,7 @@ function SwiperControl({
  * @param {Function}  element.setAttributes
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
 function Edit({
   clientId,
@@ -168,107 +174,101 @@ function Edit({
     speed,
     loop
   } = attributes;
-  const [width, setWidth] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useState)('auto');
-  const swiper = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useRef)(null);
+  const swiper = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useRef)(null);
 
   // select and dispatch
   const {
     removeBlock
-  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useDispatch)('core/block-editor');
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useDispatch)('core/block-editor');
   const {
     blockCount
-  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useSelect)(select => ({
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => ({
     blockCount: select('core/block-editor').getBlockCount(clientId)
   }));
-  const previousBlockCount = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useRef)(blockCount);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+  const previousBlockCount = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useRef)(blockCount);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
     if (!anchor) setAttributes({
       anchor: clientId
     });
   }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    if (swiper.current) {
+      if (previousBlockCount.current > 0 && blockCount === 0) {
+        removeBlock(clientId);
+      }
+      previousBlockCount.current = blockCount;
+    }
+  }, [blockCount, clientId, removeBlock]);
   let props = {
-    'slides-per-view': parseInt(slidesPerView) > 0 ? slidesPerView : 'auto',
+    'slides-per-view': slidesPerView,
     'autoplay': autoPlay,
     'space-between': spaceBetween,
     'speed': speed,
-    ...loop
+    'loop': loop
   };
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(props);
+  console.log(props);
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(props);
   const {
-    children,
-    className,
     ...innerBlocksProps
-  } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useInnerBlocksProps)(blockProps, {
-    allowedBlocks: _templates__WEBPACK_IMPORTED_MODULE_4__.ALLOWED_BLOCKS,
-    template: _templates__WEBPACK_IMPORTED_MODULE_4__.DEFAULT_TEMPLATE,
+  } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useInnerBlocksProps)(blockProps, {
+    allowedBlocks: _templates__WEBPACK_IMPORTED_MODULE_3__.ALLOWED_BLOCKS,
+    template: _templates__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_TEMPLATE,
     orientation: 'horizontal'
   });
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
-    if (previousBlockCount.current > 0 && blockCount === 0) {
-      removeBlock(clientId);
-    }
-    previousBlockCount.current = blockCount;
-  }, [blockCount, clientId, removeBlock]);
-  const resizeSwiperSlides = () => {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useLayoutEffect)(() => {
     if (swiper.current) {
-      setWidth(`${swiper.current.getBoundingClientRect().width}px`);
+      const frWidth = 1 / slidesPerView;
+      const {
+        width
+      } = swiper.current.getBoundingClientRect();
+      swiper.current.style.setProperty('--slides', blockCount);
+      swiper.current.style.setProperty('--space-between', spaceBetween);
+      swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
+      swiper.current.style.setProperty('--slider-width', `${width * frWidth * blockCount}px`);
     }
-  };
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useLayoutEffect)(() => {
-    const resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        resizeSwiperSlides();
+  }, [swiper, blockCount, slidesPerView]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SwiperControl, {
+      loop: loop,
+      setLoop: value => {
+        setAttributes({
+          loop: value
+        });
+      },
+      autoPlay: autoPlay,
+      setAutoPlay: value => {
+        setAttributes({
+          autoPlay: value
+        });
+      },
+      maxSlides: blockCount,
+      slidesPerView: slidesPerView,
+      setSlidesPerView: value => setAttributes({
+        slidesPerView: value
+      }),
+      spaceBetween: spaceBetween,
+      setSpaceBetween: value => setAttributes({
+        spaceBetween: value
+      }),
+      speed: speed,
+      setSpeed: value => setAttributes({
+        speed: value
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ColorGroupControl, {
+      accentColor: accentColor,
+      setAccentColor: value => {
+        setAttributes({
+          accentColor: value
+        });
       }
-    });
-    resizeObserver.observe(swiper.current);
-    return () => {
-      resizeObserver.unobserve(swiper.current);
-    };
-  }, [swiper]);
-  const swiperStyles = {
-    '--width': width,
-    '--slides': blockCount
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SwiperControl, {
-    loop: loop,
-    setLoop: value => {
-      setAttributes({
-        loop: value
-      });
-    },
-    autoPlay: autoPlay,
-    setAutoPlay: value => {
-      setAttributes({
-        autoPlay: value
-      });
-    },
-    maxSlides: blockCount,
-    slidesPerView: slidesPerView,
-    setSlidesPerView: value => setAttributes({
-      slidesPerView: value
-    }),
-    spaceBetween: spaceBetween,
-    setSpaceBetween: value => setAttributes({
-      spaceBetween: value
-    }),
-    speed: speed,
-    setSpeed: value => setAttributes({
-      speed: value
-    })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ColorGroupControl, {
-    accentColor: accentColor,
-    setAccentColor: value => {
-      setAttributes({
-        accentColor: value
-      });
-    }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: swiper,
-    className: `${className} wp-block-rm-swiper-container`,
-    style: swiperStyles
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("swiper-container", {
-    ...innerBlocksProps
-  }, children)));
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      ref: swiper,
+      className: `wp-block-rm-swiper-container__outer-wrapper`,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        ...innerBlocksProps
+      })
+    })]
+  });
 }
 
 /***/ }),
@@ -337,13 +337,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ save)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
@@ -362,6 +361,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
+
 function save({
   attributes
 }) {
@@ -378,18 +378,19 @@ function save({
     'slides-per-view': parseInt(slidesPerView) > 0 ? slidesPerView : 'auto',
     'autoplay': autoPlay,
     'space-between': spaceBetween,
-    ...speed,
-    ...loop
+    'speed': speed,
+    'loop': loop
   };
-  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save(props);
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save(props);
   const {
     children,
     ...innerBlocksProps
-  } = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useInnerBlocksProps.save(blockProps);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("swiper-container", {
+  } = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useInnerBlocksProps.save(blockProps);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("swiper-container", {
     id: anchor,
-    ...innerBlocksProps
-  }, children);
+    ...innerBlocksProps,
+    children: children
+  });
 }
 
 /***/ }),
@@ -436,13 +437,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "react":
-/*!************************!*\
-  !*** external "React" ***!
-  \************************/
+/***/ "react/jsx-runtime":
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
 /***/ ((module) => {
 
-module.exports = window["React"];
+module.exports = window["ReactJSXRuntime"];
 
 /***/ }),
 
@@ -512,7 +513,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"rm/swiper-container","version":"0.1.0","title":"Swiper Container","category":"widgets","icon":"align-full-width","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false,"align":true,"layout":{"default":{"type":"flex","orientation":"horizontal","flexWrap":"nowrap"}},"color":{"gradients":true,"background":true},"dimensions":{"aspectRatio":true,"minHeight":true},"anchor":true},"attributes":{"align":{"type":"string","default":""},"slidesPerView":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"slides-per-view","default":1},"loop":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"loop"},"spaceBetween":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"space-between","default":"0"},"autoPlay":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"autoplay"},"speed":{"type":"number","source":"attribute","selector":"swiper-container","attribute":"speed"}},"textdomain":"swiper-container","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"rm/swiper-container","version":"0.1.0","title":"Swiper Container","category":"widgets","icon":"align-full-width","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false,"align":true,"layout":{"default":{"type":"flex","orientation":"horizontal","flexWrap":"nowrap"}},"color":{"gradients":true,"background":true},"dimensions":{"aspectRatio":true,"minHeight":true},"anchor":true},"attributes":{"align":{"type":"string","default":""},"slidesPerView":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"slides-per-view","default":1},"spaceBetween":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"space-between","default":"0"},"autoPlay":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"autoplay"},"loop":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"loop"},"speed":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"speed","default":"300"}},"textdomain":"swiper-container","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 
@@ -558,7 +559,9 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 			}
 /******/ 			var notFulfilled = Infinity;
 /******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var chunkIds = deferred[i][0];
+/******/ 				var fn = deferred[i][1];
+/******/ 				var priority = deferred[i][2];
 /******/ 				var fulfilled = true;
 /******/ 				for (var j = 0; j < chunkIds.length; j++) {
 /******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
@@ -644,7 +647,9 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 		
 /******/ 		// install a JSONP callback for chunk loading
 /******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			var chunkIds = data[0];
+/******/ 			var moreModules = data[1];
+/******/ 			var runtime = data[2];
 /******/ 			// add "moreModules" to the modules object,
 /******/ 			// then flag all "chunkIds" as loaded and fire callback
 /******/ 			var moduleId, chunkId, i = 0;
@@ -667,7 +672,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = globalThis["webpackChunkrm_swiper_container"] = globalThis["webpackChunkrm_swiper_container"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunkrm_swiper_container"] = self["webpackChunkrm_swiper_container"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();

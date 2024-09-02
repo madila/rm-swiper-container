@@ -89,6 +89,7 @@ function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxS
 					<UnitControl label={__('Space between slides')} onChange={ setSpaceBetween } value={ spaceBetween } />
 
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label="Loop?"
 						help={
 							loop
@@ -99,6 +100,7 @@ function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxS
 						onChange={ setLoop }
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label="Autoplay?"
 						help={
 							autoPlay
@@ -134,7 +136,7 @@ function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxS
  * @param {Function}  element.setAttributes
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
 export default function Edit( {clientId, attributes, setAttributes} ) {
 
@@ -148,9 +150,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		loop
 	} = attributes;
 
-	const [width, setWidth] = useState('auto');
 	const swiper = useRef(null);
-
 
 	// select and dispatch
 	const { removeBlock } = useDispatch( 'core/block-editor' );
@@ -164,17 +164,32 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		if(!anchor) setAttributes( { anchor: clientId } );
 	}, [] );
 
+	useEffect( () => {
+
+		if(swiper.current) {
+
+			if (previousBlockCount.current > 0 && blockCount === 0) {
+				removeBlock(clientId);
+			}
+
+			previousBlockCount.current = blockCount;
+		}
+
+	}, [ blockCount, clientId, removeBlock ] );
+
 	let props = {
-		'slides-per-view':  parseInt(slidesPerView) > 0 ? slidesPerView:  'auto',
+		'slides-per-view': slidesPerView,
 		'autoplay': autoPlay,
 		'space-between': spaceBetween,
 		'speed': speed,
-		...loop
+		'loop': loop
 	};
+
+	console.log(props);
 
 	const blockProps = useBlockProps(props);
 
-	const { children, className, ...innerBlocksProps } = useInnerBlocksProps(
+	const { ...innerBlocksProps } = useInnerBlocksProps(
 		blockProps,
 		{
 			allowedBlocks: ALLOWED_BLOCKS,
@@ -183,38 +198,21 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		}
 	);
 
-	useEffect( () => {
 
-		if ( previousBlockCount.current > 0 && blockCount === 0 ) {
-			removeBlock( clientId );
-		}
+	useLayoutEffect( () => {
 
-		previousBlockCount.current = blockCount;
-
-	}, [ blockCount, clientId, removeBlock ] );
-
-	const resizeSwiperSlides = () => {
 		if(swiper.current) {
-			setWidth(`${swiper.current.getBoundingClientRect().width}px`);
+			const frWidth = 1 / slidesPerView;
+			const {width} = swiper.current.getBoundingClientRect();
+			swiper.current.style.setProperty('--slides', blockCount);
+			swiper.current.style.setProperty('--space-between', spaceBetween);
+			swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
+			swiper.current.style.setProperty('--slider-width', `${(width * frWidth) * blockCount}px`);
 		}
-	}
 
-	useLayoutEffect(() => {
-		const resizeObserver = new ResizeObserver((entries) => {
-			for (const entry of entries) {
-				resizeSwiperSlides()
-			}
-		});
-		resizeObserver.observe(swiper.current);
-		return () => {
-			resizeObserver.unobserve(swiper.current);
-		};
-	}, [swiper]);
+	}, [ swiper, blockCount, slidesPerView ] );
 
-	const swiperStyles = {
-		'--width': width,
-		'--slides': blockCount
-	}
+
 
 	return (
 		<>
@@ -246,11 +244,10 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 			   setAccentColor={(value) => {
 				   setAttributes({accentColor: value});
 			   }}/>
-			<div ref={swiper} className={`${className} wp-block-rm-swiper-container`} style={swiperStyles}>
-				<swiper-container {...innerBlocksProps }>
-					{children}
-				</swiper-container>
+			<div ref={swiper} className={`wp-block-rm-swiper-container__outer-wrapper`}>
+				<div {...innerBlocksProps} />
 			</div>
 		</>
 	);
 }
+
