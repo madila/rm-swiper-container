@@ -23,7 +23,7 @@ import { __experimentalNumberControl as NumberControl, ToggleControl, Panel, Pan
 import { DEFAULT_TEMPLATE, ALLOWED_BLOCKS } from './templates';
 
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useLayoutEffect, useState, useRef } from '@wordpress/element';
+import { useEffect, useLayoutEffect, useRef, useState } from '@wordpress/element';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -69,24 +69,47 @@ function ColorGroupControl( { accentColor, setAccentColor } ) {
  *
  * @return {JSX.Element}                The control group.
  */
-function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxSlides, loop, setLoop , spaceBetween, setAutoPlay, autoPlay, speed, setSpeed} ) {
+function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPerView, setSelectedSlidesPerView, autoSlidesPerView, setAutoSlidesPerView} ) {
+	const {
+		slidesPerView,
+		spaceBetween,
+		speed,
+		loop,
+		autoPlay,
+		centeredSlides,
+		shouldOverflow
+	} = attributes;
+
 	return (
 		<InspectorControls>
 			<Panel header="Swiper Settings">
 				<PanelBody title="Behaviour" initialOpen={ true }>
+
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label="Automatically calculate slides per view?"
+						checked={ autoSlidesPerView }
+						onChange={ (value) => {
+							setAutoSlidesPerView(value);
+						}}
+					/>
+					{!autoSlidesPerView &&
 					<NumberControl
 						help="Please select the slides per view. 0 for auto"
 						isShiftStepEnabled={ true }
 						shiftStep={ 1 }
 						max={maxSlides}
-						min={ 0 }
+						min={ 1 }
 						labelPosition="top"
-						value={ slidesPerView }
+						value={ selectedSlidesPerView }
 						label={ __( 'Slides per view (number)' ) }
-						onChange={ setSlidesPerView }
-					/>
+						onChange={ (value) =>
+							setSelectedSlidesPerView(value)
+						}
+					/>}
 
-					<UnitControl label={__('Space between slides')} onChange={ setSpaceBetween } value={ spaceBetween } />
+					<UnitControl label={__('Space between slides')} onChange={  (value) =>
+						setAttributes({spaceBetween: value}) } value={ spaceBetween } />
 
 					<ToggleControl
 						__nextHasNoMarginBottom
@@ -97,7 +120,9 @@ function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxS
 								: 'Swiper will stop at the last slide.'
 						}
 						checked={ loop }
-						onChange={ setLoop }
+						onChange={ (value) =>
+							setAttributes({loop: value})
+						}
 					/>
 					<ToggleControl
 						__nextHasNoMarginBottom
@@ -108,7 +133,28 @@ function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxS
 								: 'Swiper will be manually controlled.'
 						}
 						checked={ autoPlay }
-						onChange={ setAutoPlay }
+						onChange={ (value) =>
+							setAttributes({autoPlay: value})
+						}
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label="Overflow Visible"
+						help={
+							shouldOverflow
+								? 'The content will be show outside of the container.'
+								: 'The content will be hidden outside of the container.'
+						}
+						checked={ shouldOverflow }
+						onChange={ (value) =>
+							setAttributes({shouldOverflow: value}) }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label="Center Slides"
+						checked={ centeredSlides }
+						onChange={ (value) =>
+							setAttributes({centeredSlides: value}) }
 					/>
 					<NumberControl
 						isShiftStepEnabled={ true }
@@ -118,7 +164,9 @@ function SwiperControl( { slidesPerView, setSlidesPerView, setSpaceBetween, maxS
 						labelPosition="top"
 						value={ speed }
 						label={ __( 'Autoplay speed' ) }
-						onChange={ setSpeed }
+						onChange={ (value) =>
+							setAttributes({speed: value})
+						 }
 					/>
 				</PanelBody>
 			</Panel>
@@ -144,11 +192,11 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		anchor,
 		slidesPerView,
 		accentColor,
-		autoPlay,
 		spaceBetween,
-		speed,
-		loop
 	} = attributes;
+
+	const [autoSlidesPerView, setAutoSlidesPerView] = useState(false);
+	const [selectedSlidesPerView, setSelectedSlidesPerView] = useState(1);
 
 	const swiper = useRef(null);
 
@@ -177,17 +225,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	}, [ blockCount, clientId, removeBlock ] );
 
-	let props = {
-		'slides-per-view': slidesPerView,
-		'autoplay': autoPlay,
-		'space-between': spaceBetween,
-		'speed': speed,
-		'loop': loop
-	};
-
-	console.log(props);
-
-	const blockProps = useBlockProps(props);
+	const blockProps = useBlockProps();
 
 	const { ...innerBlocksProps } = useInnerBlocksProps(
 		blockProps,
@@ -200,44 +238,33 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 
 	useLayoutEffect( () => {
-
 		if(swiper.current) {
-			const frWidth = 1 / slidesPerView;
+			const frWidth = 1 / selectedSlidesPerView;
 			const {width} = swiper.current.getBoundingClientRect();
 			swiper.current.style.setProperty('--slides', blockCount);
 			swiper.current.style.setProperty('--space-between', spaceBetween);
 			swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
 			swiper.current.style.setProperty('--slider-width', `${(width * frWidth) * blockCount}px`);
 		}
+	}, [ swiper, blockCount, slidesPerView, selectedSlidesPerView, autoSlidesPerView ] );
 
-	}, [ swiper, blockCount, slidesPerView ] );
 
+	useEffect(() => {
 
+		setAttributes({slidesPerView: autoSlidesPerView ? 'auto' : selectedSlidesPerView})
+
+	}, [selectedSlidesPerView, autoSlidesPerView]);
 
 	return (
 		<>
 			<SwiperControl
-				loop={loop}
-				setLoop={(value) => {
-					setAttributes({loop: value})
-				}}
-				autoPlay={autoPlay}
-				setAutoPlay={(value) => {
-					setAttributes({autoPlay: value})
-				}}
 				maxSlides={blockCount}
-				slidesPerView={slidesPerView}
-				setSlidesPerView={(value) =>
-					setAttributes({slidesPerView: value})
-				}
-				spaceBetween={spaceBetween}
-				setSpaceBetween={(value) =>
-					setAttributes({spaceBetween: value})
-				}
-				speed={speed}
-				setSpeed={(value) =>
-					setAttributes({speed: value})
-				}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				autoSlidesPerView={autoSlidesPerView}
+				setAutoSlidesPerView={setAutoSlidesPerView}
+				selectedSlidesPerView={selectedSlidesPerView}
+				setSelectedSlidesPerView={setSelectedSlidesPerView}
 			/>
 			<ColorGroupControl
 				accentColor={accentColor}

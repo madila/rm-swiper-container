@@ -7,6 +7,9 @@
  * Replace them with your own styles or remove the file completely.
  */
 .wp-block-rm-swiper-container__outer-wrapper {
+  overflow: hidden;
+}
+.wp-block-rm-swiper-container__outer-wrapper:has(.has-child-selected, .is-selected) {
   overflow-x: scroll;
 }
 

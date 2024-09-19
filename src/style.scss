@@ -5,11 +5,16 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-
+.wp-site-blocks:has([should-overflow="true"]) {
+  overflow: hidden;
+}
 
 .wp-site-blocks:not(.is-root-container) {
   swiper-container {
     transition: opacity 0.5s ease-out;
+    &[should-overflow="true"]::part(container) {
+      overflow: visible;
+    }
   }
 
   swiper-container:not(:defined) {

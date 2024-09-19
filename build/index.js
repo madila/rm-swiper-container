@@ -89,50 +89,83 @@ function ColorGroupControl({
  * @return {JSX.Element}                The control group.
  */
 function SwiperControl({
-  slidesPerView,
-  setSlidesPerView,
-  setSpaceBetween,
   maxSlides,
-  loop,
-  setLoop,
-  spaceBetween,
-  setAutoPlay,
-  autoPlay,
-  speed,
-  setSpeed
+  attributes,
+  setAttributes,
+  selectedSlidesPerView,
+  setSelectedSlidesPerView,
+  autoSlidesPerView,
+  setAutoSlidesPerView
 }) {
+  const {
+    slidesPerView,
+    spaceBetween,
+    speed,
+    loop,
+    autoPlay,
+    centeredSlides,
+    shouldOverflow
+  } = attributes;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
       header: "Swiper Settings",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
         title: "Behaviour",
         initialOpen: true,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalNumberControl, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          __nextHasNoMarginBottom: true,
+          label: "Automatically calculate slides per view?",
+          checked: autoSlidesPerView,
+          onChange: value => {
+            setAutoSlidesPerView(value);
+          }
+        }), !autoSlidesPerView && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalNumberControl, {
           help: "Please select the slides per view. 0 for auto",
           isShiftStepEnabled: true,
           shiftStep: 1,
           max: maxSlides,
-          min: 0,
+          min: 1,
           labelPosition: "top",
-          value: slidesPerView,
+          value: selectedSlidesPerView,
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Slides per view (number)'),
-          onChange: setSlidesPerView
+          onChange: value => setSelectedSlidesPerView(value)
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalUnitControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Space between slides'),
-          onChange: setSpaceBetween,
+          onChange: value => setAttributes({
+            spaceBetween: value
+          }),
           value: spaceBetween
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
           __nextHasNoMarginBottom: true,
           label: "Loop?",
           help: loop ? 'Swiper will continue after the last slide.' : 'Swiper will stop at the last slide.',
           checked: loop,
-          onChange: setLoop
+          onChange: value => setAttributes({
+            loop: value
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
           __nextHasNoMarginBottom: true,
           label: "Autoplay?",
           help: autoPlay ? 'Swiper will start automatically' : 'Swiper will be manually controlled.',
           checked: autoPlay,
-          onChange: setAutoPlay
+          onChange: value => setAttributes({
+            autoPlay: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          __nextHasNoMarginBottom: true,
+          label: "Overflow Visible",
+          help: shouldOverflow ? 'The content will be show outside of the container.' : 'The content will be hidden outside of the container.',
+          checked: shouldOverflow,
+          onChange: value => setAttributes({
+            shouldOverflow: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          __nextHasNoMarginBottom: true,
+          label: "Center Slides",
+          checked: centeredSlides,
+          onChange: value => setAttributes({
+            centeredSlides: value
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalNumberControl, {
           isShiftStepEnabled: true,
           shiftStep: 100,
@@ -141,7 +174,9 @@ function SwiperControl({
           labelPosition: "top",
           value: speed,
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Autoplay speed'),
-          onChange: setSpeed
+          onChange: value => setAttributes({
+            speed: value
+          })
         })]
       })
     })
@@ -169,11 +204,10 @@ function Edit({
     anchor,
     slidesPerView,
     accentColor,
-    autoPlay,
-    spaceBetween,
-    speed,
-    loop
+    spaceBetween
   } = attributes;
+  const [autoSlidesPerView, setAutoSlidesPerView] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useState)(false);
+  const [selectedSlidesPerView, setSelectedSlidesPerView] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useState)(1);
   const swiper = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useRef)(null);
 
   // select and dispatch
@@ -199,15 +233,7 @@ function Edit({
       previousBlockCount.current = blockCount;
     }
   }, [blockCount, clientId, removeBlock]);
-  let props = {
-    'slides-per-view': slidesPerView,
-    'autoplay': autoPlay,
-    'space-between': spaceBetween,
-    'speed': speed,
-    'loop': loop
-  };
-  console.log(props);
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(props);
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)();
   const {
     ...innerBlocksProps
   } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useInnerBlocksProps)(blockProps, {
@@ -217,7 +243,7 @@ function Edit({
   });
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useLayoutEffect)(() => {
     if (swiper.current) {
-      const frWidth = 1 / slidesPerView;
+      const frWidth = 1 / selectedSlidesPerView;
       const {
         width
       } = swiper.current.getBoundingClientRect();
@@ -226,34 +252,21 @@ function Edit({
       swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
       swiper.current.style.setProperty('--slider-width', `${width * frWidth * blockCount}px`);
     }
-  }, [swiper, blockCount, slidesPerView]);
+  }, [swiper, blockCount, slidesPerView, selectedSlidesPerView, autoSlidesPerView]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    setAttributes({
+      slidesPerView: autoSlidesPerView ? 'auto' : selectedSlidesPerView
+    });
+  }, [selectedSlidesPerView, autoSlidesPerView]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SwiperControl, {
-      loop: loop,
-      setLoop: value => {
-        setAttributes({
-          loop: value
-        });
-      },
-      autoPlay: autoPlay,
-      setAutoPlay: value => {
-        setAttributes({
-          autoPlay: value
-        });
-      },
       maxSlides: blockCount,
-      slidesPerView: slidesPerView,
-      setSlidesPerView: value => setAttributes({
-        slidesPerView: value
-      }),
-      spaceBetween: spaceBetween,
-      setSpaceBetween: value => setAttributes({
-        spaceBetween: value
-      }),
-      speed: speed,
-      setSpeed: value => setAttributes({
-        speed: value
-      })
+      attributes: attributes,
+      setAttributes: setAttributes,
+      autoSlidesPerView: autoSlidesPerView,
+      setAutoSlidesPerView: setAutoSlidesPerView,
+      selectedSlidesPerView: selectedSlidesPerView,
+      setSelectedSlidesPerView: setSelectedSlidesPerView
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ColorGroupControl, {
       accentColor: accentColor,
       setAccentColor: value => {
@@ -369,16 +382,21 @@ function save({
     anchor,
     slidesPerView,
     accentColor,
+    centeredSlides,
     speed,
+    shouldOverflow,
     autoPlay,
     spaceBetween,
     loop
   } = attributes;
+  console.log(slidesPerView);
   let props = {
-    'slides-per-view': parseInt(slidesPerView) > 0 ? slidesPerView : 'auto',
-    'autoplay': autoPlay,
+    'slides-per-view': slidesPerView,
+    'autoplay': autoPlay ? autoPlay.toString() : false,
     'space-between': spaceBetween,
+    'should-overflow': shouldOverflow ? shouldOverflow.toString() : false,
     'speed': speed,
+    'centered-slides': centeredSlides ? centeredSlides.toString() : false,
     'loop': loop
   };
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save(props);
@@ -513,7 +531,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"rm/swiper-container","version":"0.1.0","title":"Swiper Container","category":"widgets","icon":"align-full-width","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false,"align":true,"layout":{"default":{"type":"flex","orientation":"horizontal","flexWrap":"nowrap"}},"color":{"gradients":true,"background":true},"dimensions":{"aspectRatio":true,"minHeight":true},"anchor":true},"attributes":{"align":{"type":"string","default":""},"slidesPerView":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"slides-per-view","default":1},"spaceBetween":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"space-between","default":"0"},"autoPlay":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"autoplay"},"loop":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"loop"},"speed":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"speed","default":"300"}},"textdomain":"swiper-container","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"rm/swiper-container","version":"0.1.0","title":"Swiper Container","category":"widgets","icon":"align-full-width","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false,"align":true,"layout":{"default":{"type":"flex","orientation":"horizontal","flexWrap":"nowrap"}},"color":{"gradients":true,"background":true},"dimensions":{"aspectRatio":true,"minHeight":true},"anchor":true},"attributes":{"align":{"type":"string","default":""},"slidesPerView":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"slides-per-view","default":"1"},"spaceBetween":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"space-between","default":"0px"},"autoPlay":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"autoplay"},"loop":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"loop"},"shouldOverflow":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"should-overflow"},"speed":{"type":"string","source":"attribute","selector":"swiper-container","attribute":"speed","default":"300"},"centeredSlides":{"type":"boolean","source":"attribute","selector":"swiper-container","attribute":"centered-slides"}},"textdomain":"swiper-container","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 
@@ -559,9 +577,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 			}
 /******/ 			var notFulfilled = Infinity;
 /******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var chunkIds = deferred[i][0];
-/******/ 				var fn = deferred[i][1];
-/******/ 				var priority = deferred[i][2];
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
 /******/ 				var fulfilled = true;
 /******/ 				for (var j = 0; j < chunkIds.length; j++) {
 /******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
@@ -647,9 +663,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 		
 /******/ 		// install a JSONP callback for chunk loading
 /******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var chunkIds = data[0];
-/******/ 			var moreModules = data[1];
-/******/ 			var runtime = data[2];
+/******/ 			var [chunkIds, moreModules, runtime] = data;
 /******/ 			// add "moreModules" to the modules object,
 /******/ 			// then flag all "chunkIds" as loaded and fire callback
 /******/ 			var moduleId, chunkId, i = 0;
@@ -672,7 +686,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkrm_swiper_container"] = self["webpackChunkrm_swiper_container"] || [];
+/******/ 		var chunkLoadingGlobal = globalThis["webpackChunkrm_swiper_container"] = globalThis["webpackChunkrm_swiper_container"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();

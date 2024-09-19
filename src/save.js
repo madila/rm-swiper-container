@@ -22,18 +22,23 @@ export default function save( { attributes } ) {
 		anchor,
 		slidesPerView,
 		accentColor,
+		centeredSlides,
 		speed,
+		shouldOverflow,
 		autoPlay,
 		spaceBetween,
 		loop
 	} = attributes;
 
+	console.log(slidesPerView);
 
 	let props = {
-		'slides-per-view':  parseInt(slidesPerView) > 0 ? slidesPerView:  'auto',
-		'autoplay': autoPlay,
+		'slides-per-view':  slidesPerView,
+		'autoplay': autoPlay ? autoPlay.toString() : false,
 		'space-between': spaceBetween,
+		'should-overflow': shouldOverflow ? shouldOverflow.toString() : false,
 		'speed': speed,
+		'centered-slides': centeredSlides ? centeredSlides.toString() : false,
 		'loop': loop,
 	};
 

@@ -5,14 +5,17 @@
  */
 
 .wp-block-rm-swiper-container__outer-wrapper {
+  overflow: hidden;
+  &:has(.has-child-selected, .is-selected) {
     overflow-x: scroll;
+  }
 }
 
 .wp-block-rm-swiper-container {
-    display: grid !important;
-    grid-template-columns: repeat(var(--slides), var(--per-view));
-    gap: var(--space-between) !important;
-    max-width: var(--slider-width);
-    width: var(--slider-width);
+  display: grid !important;
+  grid-template-columns: repeat(var(--slides), var(--per-view));
+  gap: var(--space-between) !important;
+  max-width: var(--slider-width);
+  width: var(--slider-width);
 }
 

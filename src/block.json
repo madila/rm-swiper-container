@@ -38,14 +38,14 @@
 			"source": "attribute",
 			"selector": "swiper-container",
 			"attribute": "slides-per-view",
-			"default": 1
+			"default": "1"
 		},
 		"spaceBetween": {
 			"type": "string",
 			"source": "attribute",
 			"selector": "swiper-container",
 			"attribute": "space-between",
-			"default": "0"
+			"default": "0px"
 		},
 		"autoPlay": {
 			"type": "boolean",
@@ -59,12 +59,24 @@
 			"selector": "swiper-container",
 			"attribute": "loop"
 		},
+		"shouldOverflow": {
+			"type": "boolean",
+			"source": "attribute",
+			"selector": "swiper-container",
+			"attribute": "should-overflow"
+		},
 		"speed": {
 			"type": "string",
 			"source": "attribute",
 			"selector": "swiper-container",
 			"attribute": "speed",
 			"default": "300"
+		},
+		"centeredSlides": {
+			"type": "boolean",
+			"source": "attribute",
+			"selector": "swiper-container",
+			"attribute": "centered-slides"
 		}
 	},
 	"textdomain": "swiper-container",
