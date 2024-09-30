@@ -71,8 +71,6 @@ function ColorGroupControl( { accentColor, setAccentColor } ) {
  */
 function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPerView, setSelectedSlidesPerView, autoSlidesPerView, setAutoSlidesPerView} ) {
 	const {
-		slidesPerView,
-		spaceBetween,
 		speed,
 		loop,
 		autoPlay,
@@ -107,9 +105,6 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 							setSelectedSlidesPerView(value)
 						}
 					/>}
-
-					<UnitControl label={__('Space between slides')} onChange={  (value) =>
-						setAttributes({spaceBetween: value}) } value={ spaceBetween } />
 
 					<ToggleControl
 						__nextHasNoMarginBottom
@@ -192,7 +187,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		anchor,
 		slidesPerView,
 		accentColor,
-		spaceBetween,
+		shouldOverflow
 	} = attributes;
 
 	const [autoSlidesPerView, setAutoSlidesPerView] = useState(false);
@@ -227,7 +222,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	const blockProps = useBlockProps();
 
-	const { ...innerBlocksProps } = useInnerBlocksProps(
+	const { children, ...innerBlocksProps } = useInnerBlocksProps(
 		blockProps,
 		{
 			allowedBlocks: ALLOWED_BLOCKS,
@@ -236,13 +231,11 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		}
 	);
 
-
 	useLayoutEffect( () => {
 		if(swiper.current) {
 			const frWidth = 1 / selectedSlidesPerView;
 			const {width} = swiper.current.getBoundingClientRect();
 			swiper.current.style.setProperty('--slides', blockCount);
-			swiper.current.style.setProperty('--space-between', spaceBetween);
 			swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
 			swiper.current.style.setProperty('--slider-width', `${(width * frWidth) * blockCount}px`);
 		}
@@ -250,9 +243,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 
 	useEffect(() => {
-
 		setAttributes({slidesPerView: autoSlidesPerView ? 'auto' : selectedSlidesPerView})
-
 	}, [selectedSlidesPerView, autoSlidesPerView]);
 
 	return (
@@ -271,8 +262,10 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 			   setAccentColor={(value) => {
 				   setAttributes({accentColor: value});
 			   }}/>
-			<div ref={swiper} className={`wp-block-rm-swiper-container__outer-wrapper`}>
-				<div {...innerBlocksProps} />
+			<div ref={swiper} className={`wp-block-rm-swiper-container__outer-wrapper${shouldOverflow ? ` should-overflow` : ``}`}>
+				<div {...innerBlocksProps}>
+					<div className="wp-block-rm-swiper-container__inner-wrapper">{children}</div>
+				</div>
 			</div>
 		</>
 	);

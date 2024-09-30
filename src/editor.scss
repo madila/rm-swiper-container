@@ -6,16 +6,18 @@
 
 .wp-block-rm-swiper-container__outer-wrapper {
   overflow: hidden;
-  &:has(.has-child-selected, .is-selected) {
+  &.should-overflow {
+    overflow: visible;
+  }
+  & > div:has(.has-child-selected, .is-selected) {
     overflow-x: scroll;
   }
 }
 
-.wp-block-rm-swiper-container {
-  display: grid !important;
+.wp-block-rm-swiper-container__inner-wrapper {
+  display: grid;
   grid-template-columns: repeat(var(--slides), var(--per-view));
-  gap: var(--space-between) !important;
-  max-width: var(--slider-width);
+  min-width: var(--slider-width);
   width: var(--slider-width);
+  gap: inherit;
 }
-

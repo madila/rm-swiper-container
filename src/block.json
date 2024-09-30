@@ -5,13 +5,14 @@
 	"version": "0.1.0",
 	"title": "Swiper Container",
 	"category": "widgets",
-	"icon": "align-full-width",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"supports": {
 		"html": false,
 		"align": true,
+		"alignWide": true,
 		"layout": {
+			"allowCustomContentAndWideSize": true,
 			"default": {
 				"type": "flex",
 				"orientation": "horizontal",
@@ -26,6 +27,12 @@
 			"aspectRatio": true,
 			"minHeight": true
 		},
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		},
+		"shadow": true,
 		"anchor": true
 	},
 	"attributes": {
