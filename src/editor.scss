@@ -9,8 +9,9 @@
   &.should-overflow {
     overflow: visible;
   }
-  & > div:has(.has-child-selected, .is-selected) {
+  & > div:has(.has-child-selected, .is-selected), &:hover > div, &:focus > div, &:focus-within > div   {
     overflow-x: scroll;
+    overflow-y: hidden;
   }
 }
 

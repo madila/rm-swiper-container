@@ -28,7 +28,6 @@ import { register } from 'swiper/element/bundle';
 const { requestAnimationFrame } = window;
 
 window.addEventListener('load', () => {
-    console.log('DOM');
     requestAnimationFrame(() => {
         register();
     })

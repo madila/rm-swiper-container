@@ -12,6 +12,10 @@
 .wp-site-blocks:not(.is-root-container) {
   swiper-container {
     transition: opacity 0.5s ease-out;
+    overflow: hidden;
+    &[should-overflow="true"] {
+      overflow: unset;
+    }
     &[should-overflow="true"]::part(container) {
       overflow: visible;
     }

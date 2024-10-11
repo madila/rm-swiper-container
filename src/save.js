@@ -27,13 +27,14 @@ export default function save( { attributes } ) {
 		shouldOverflow,
 		autoPlay,
 		spaceBetween,
-		loop
+		loop,
+		pagination,
+		navigation,
+		scrollbar
 	} = attributes;
 
-	console.log(slidesPerView);
-
 	let props = {
-		'slides-per-view':  slidesPerView,
+		'slides-per-view': slidesPerView || 'auto',
 		'autoplay': autoPlay ? autoPlay.toString() : false,
 		'space-between': spaceBetween,
 		'should-overflow': shouldOverflow ? shouldOverflow.toString() : false,
@@ -41,6 +42,25 @@ export default function save( { attributes } ) {
 		'centered-slides': centeredSlides ? centeredSlides.toString() : false,
 		'loop': loop,
 	};
+
+	if(pagination) {
+		props['pagination'] = 'true';
+	}
+
+	if(navigation) {
+		props['navigation'] = 'true';
+	}
+
+	if(scrollbar) {
+		props['scrollbar'] = 'true';
+	}
+
+	if(accentColor) {
+		props.style = {
+			...props.style,
+			'--swiper-theme-color': accentColor,
+		};
+	}
 
 	const blockProps = useBlockProps.save(props);
 

@@ -71,11 +71,15 @@ function ColorGroupControl( { accentColor, setAccentColor } ) {
  */
 function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPerView, setSelectedSlidesPerView, autoSlidesPerView, setAutoSlidesPerView} ) {
 	const {
+		pagination,
+		navigation,
+		scrollbar,
 		speed,
 		loop,
 		autoPlay,
 		centeredSlides,
-		shouldOverflow
+		shouldOverflow,
+		slidesPerView
 	} = attributes;
 
 	return (
@@ -88,7 +92,10 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 						label="Automatically calculate slides per view?"
 						checked={ autoSlidesPerView }
 						onChange={ (value) => {
+							const currentSlides = !slidesPerView || slidesPerView === 'auto' ? 1 : slidesPerView;
 							setAutoSlidesPerView(value);
+							setSelectedSlidesPerView(currentSlides);
+							setAttributes({slidesPerView: value ? currentSlides : selectedSlidesPerView});
 						}}
 					/>
 					{!autoSlidesPerView &&
@@ -99,11 +106,12 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 						max={maxSlides}
 						min={ 1 }
 						labelPosition="top"
-						value={ selectedSlidesPerView }
+						value={ slidesPerView }
 						label={ __( 'Slides per view (number)' ) }
-						onChange={ (value) =>
-							setSelectedSlidesPerView(value)
-						}
+						onChange={ (value) => {
+							setSelectedSlidesPerView(value);
+							setAttributes({slidesPerView: value})
+						}}
 					/>}
 
 					<ToggleControl
@@ -151,6 +159,30 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 						onChange={ (value) =>
 							setAttributes({centeredSlides: value}) }
 					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label="Enable navigation?"
+						checked={ navigation }
+						onChange={ (value) => {
+							setAttributes({navigation: value});
+						}}
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label="Enable pagination?"
+						checked={ pagination }
+						onChange={ (value) => {
+							setAttributes({pagination: value});
+						}}
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label="Enable scrollbars?"
+						checked={ scrollbar }
+						onChange={ (value) => {
+							setAttributes({scrollbar: value});
+						}}
+					/>
 					<NumberControl
 						isShiftStepEnabled={ true }
 						shiftStep={ 100 }
@@ -187,7 +219,10 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		anchor,
 		slidesPerView,
 		accentColor,
-		shouldOverflow
+		shouldOverflow,
+		pagination,
+		navigation,
+		scrollbar
 	} = attributes;
 
 	const [autoSlidesPerView, setAutoSlidesPerView] = useState(false);
@@ -233,18 +268,13 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	useLayoutEffect( () => {
 		if(swiper.current) {
-			const frWidth = 1 / selectedSlidesPerView;
+			const frWidth = (!slidesPerView || slidesPerView === 'auto') ? 1 / slidesPerView : 1;
 			const {width} = swiper.current.getBoundingClientRect();
 			swiper.current.style.setProperty('--slides', blockCount);
 			swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
 			swiper.current.style.setProperty('--slider-width', `${(width * frWidth) * blockCount}px`);
 		}
-	}, [ swiper, blockCount, slidesPerView, selectedSlidesPerView, autoSlidesPerView ] );
-
-
-	useEffect(() => {
-		setAttributes({slidesPerView: autoSlidesPerView ? 'auto' : selectedSlidesPerView})
-	}, [selectedSlidesPerView, autoSlidesPerView]);
+	}, [ swiper, blockCount, slidesPerView, autoSlidesPerView ] );
 
 	return (
 		<>
