@@ -69,8 +69,10 @@ function ColorGroupControl( { accentColor, setAccentColor } ) {
  *
  * @return {JSX.Element}                The control group.
  */
-function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPerView, setSelectedSlidesPerView, autoSlidesPerView, setAutoSlidesPerView} ) {
+function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPerView, setSelectedSlidesPerView } ) {
 	const {
+		autoSlidesPerView,
+		spaceBetween,
 		pagination,
 		navigation,
 		scrollbar,
@@ -83,6 +85,10 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 		slidesPerView
 	} = attributes;
 
+	const units = [
+		{ value: 'px', label: 'px', default: 0 }
+	];
+
 	return (
 		<InspectorControls>
 			<Panel header="Swiper Settings">
@@ -93,10 +99,10 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 						label="Automatically calculate slides per view?"
 						checked={ autoSlidesPerView }
 						onChange={ (value) => {
-							const currentSlides = !slidesPerView || slidesPerView === 'auto' ? 1 : slidesPerView;
-							setAutoSlidesPerView(value);
+							const currentSlides = slidesPerView === 'auto' ? 1 : slidesPerView;
+							setAttributes({autoSlidesPerView: value});
 							setSelectedSlidesPerView(currentSlides);
-							setAttributes({slidesPerView: value ? currentSlides : selectedSlidesPerView});
+							setAttributes({slidesPerView: value ? 'auto' : selectedSlidesPerView});
 						}}
 					/>
 					{!autoSlidesPerView &&
@@ -111,7 +117,9 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 						label={ __( 'Slides per view (number)' ) }
 						onChange={ (value) => {
 							setSelectedSlidesPerView(value);
-							setAttributes({slidesPerView: value})
+							if(!autoSlidesPerView) {
+								setAttributes({slidesPerView: value})
+							}
 						}}
 					/>}
 
@@ -152,6 +160,12 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 						checked={ shouldOverflow }
 						onChange={ (value) =>
 							setAttributes({shouldOverflow: value}) }
+					/>
+					<UnitControl
+						value={spaceBetween}
+						units={units}
+						onChange={ (value) =>
+							setAttributes({spaceBetween: value}) }
 					/>
 					<ToggleControl
 						__nextHasNoMarginBottom
@@ -229,13 +243,14 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	const {
+		spaceBetween,
 		anchor,
+		autoSlidesPerView,
 		slidesPerView,
 		accentColor,
 		shouldOverflow
 	} = attributes;
 
-	const [autoSlidesPerView, setAutoSlidesPerView] = useState(false);
 	const [selectedSlidesPerView, setSelectedSlidesPerView] = useState(1);
 
 	const swiper = useRef(null);
@@ -278,13 +293,14 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	useLayoutEffect( () => {
 		if(swiper.current) {
-			const frWidth = (!slidesPerView || slidesPerView === 'auto') ? 1 / slidesPerView : 1;
+			const frWidth = 1 / slidesPerView;
 			const {width} = swiper.current.getBoundingClientRect();
+			swiper.current.style.setProperty('--space-between', spaceBetween);
 			swiper.current.style.setProperty('--slides', blockCount);
 			swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
 			swiper.current.style.setProperty('--slider-width', `${(width * frWidth) * blockCount}px`);
 		}
-	}, [ swiper, blockCount, slidesPerView, autoSlidesPerView ] );
+	}, [ swiper, blockCount, spaceBetween, slidesPerView, autoSlidesPerView ] );
 
 	return (
 		<>
@@ -292,8 +308,6 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 				maxSlides={blockCount}
 				attributes={attributes}
 				setAttributes={setAttributes}
-				autoSlidesPerView={autoSlidesPerView}
-				setAutoSlidesPerView={setAutoSlidesPerView}
 				selectedSlidesPerView={selectedSlidesPerView}
 				setSelectedSlidesPerView={setSelectedSlidesPerView}
 			/>

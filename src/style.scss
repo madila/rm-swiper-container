@@ -9,6 +9,12 @@
   overflow: hidden;
 }
 
+swiper-container::part(container) {
+  overflow: visible;
+  --swiper-pagination-bottom: auto;
+  --swiper-pagination-top: 100%;
+}
+
 .wp-site-blocks:not(.is-root-container) {
   swiper-container {
     transition: opacity 0.5s ease-out;

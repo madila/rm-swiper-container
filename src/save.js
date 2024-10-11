@@ -5,7 +5,6 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { useEffect, useLayoutEffect, useState, useRef } from '@wordpress/element';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -20,6 +19,7 @@ export default function save( { attributes } ) {
 
 	const {
 		anchor,
+		autoSlidesPerView,
 		slidesPerView,
 		accentColor,
 		centeredSlides,
@@ -35,13 +35,16 @@ export default function save( { attributes } ) {
 	} = attributes;
 
 	let props = {
-		'slides-per-view': slidesPerView || 'auto',
-		'space-between': spaceBetween,
+		'slides-per-view': autoSlidesPerView ? 'auto' : slidesPerView,
 		'should-overflow': shouldOverflow ? shouldOverflow.toString() : false,
 		'speed': speed,
 		'centered-slides': centeredSlides ? centeredSlides.toString() : false,
 		'loop': loop,
 	};
+
+	if(spaceBetween) {
+		props['space-between'] = spaceBetween;
+	}
 
 	if(autoPlay) {
 		props['autoplay'] = 'true';
@@ -73,7 +76,6 @@ export default function save( { attributes } ) {
 	const blockProps = useBlockProps.save(props);
 
 	const { children, ...innerBlocksProps } = useInnerBlocksProps.save( blockProps );
-
 	return (
 		<swiper-container id={anchor} { ...innerBlocksProps }>
 			{ children }

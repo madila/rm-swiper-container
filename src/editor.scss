@@ -20,5 +20,5 @@
   grid-template-columns: repeat(var(--slides), var(--per-view));
   min-width: var(--slider-width);
   width: var(--slider-width);
-  gap: inherit;
+  gap: var(--space-between);
 }

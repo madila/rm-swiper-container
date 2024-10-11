@@ -51,12 +51,14 @@
       "selector": "swiper-container",
       "attribute": "slides-per-view"
     },
+    "autoSlidesPerView": {
+      "type": "boolean"
+    },
     "spaceBetween": {
       "type": "string",
       "source": "attribute",
       "selector": "swiper-container",
-      "attribute": "space-between",
-      "default": "0px"
+      "attribute": "space-between"
     },
     "autoPlay": {
       "type": "boolean",
