@@ -64,6 +64,19 @@
       "selector": "swiper-container",
       "attribute": "autoplay"
     },
+    "autoPlayDelay": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "autoplay-delay"
+    },
+    "speed": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "speed",
+      "default": "4000"
+    },
     "navigation": {
       "type": "boolean",
       "source": "attribute",
@@ -93,13 +106,6 @@
       "source": "attribute",
       "selector": "swiper-container",
       "attribute": "should-overflow"
-    },
-    "speed": {
-      "type": "string",
-      "source": "attribute",
-      "selector": "swiper-container",
-      "attribute": "speed",
-      "default": "300"
     },
     "centeredSlides": {
       "type": "boolean",

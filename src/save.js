@@ -26,6 +26,7 @@ export default function save( { attributes } ) {
 		speed,
 		shouldOverflow,
 		autoPlay,
+		autoPlayDelay,
 		spaceBetween,
 		loop,
 		pagination,
@@ -35,13 +36,20 @@ export default function save( { attributes } ) {
 
 	let props = {
 		'slides-per-view': slidesPerView || 'auto',
-		'autoplay': autoPlay ? autoPlay.toString() : false,
 		'space-between': spaceBetween,
 		'should-overflow': shouldOverflow ? shouldOverflow.toString() : false,
 		'speed': speed,
 		'centered-slides': centeredSlides ? centeredSlides.toString() : false,
 		'loop': loop,
 	};
+
+	if(autoPlay) {
+		props['autoplay'] = 'true';
+	}
+
+	if(autoPlayDelay) {
+		props['autoplay-delay'] = autoPlayDelay.toString() || '4000';
+	}
 
 	if(pagination) {
 		props['pagination'] = 'true';

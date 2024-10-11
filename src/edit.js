@@ -77,6 +77,7 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 		speed,
 		loop,
 		autoPlay,
+		autoPlayDelay,
 		centeredSlides,
 		shouldOverflow,
 		slidesPerView
@@ -189,8 +190,20 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 						max={20000}
 						min={100}
 						labelPosition="top"
+						value={ autoPlayDelay }
+						label={ __( 'Autoplay delay' ) }
+						onChange={ (value) =>
+							setAttributes({ autoPlayDelay: value })
+						}
+					/>
+					<NumberControl
+						isShiftStepEnabled={ true }
+						shiftStep={ 100 }
+						max={20000}
+						min={100}
+						labelPosition="top"
 						value={ speed }
-						label={ __( 'Autoplay speed' ) }
+						label={ __( 'Autoplay transition speed' ) }
 						onChange={ (value) =>
 							setAttributes({speed: value})
 						 }
@@ -219,10 +232,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		anchor,
 		slidesPerView,
 		accentColor,
-		shouldOverflow,
-		pagination,
-		navigation,
-		scrollbar
+		shouldOverflow
 	} = attributes;
 
 	const [autoSlidesPerView, setAutoSlidesPerView] = useState(false);
