@@ -293,7 +293,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	useLayoutEffect( () => {
 		if(swiper.current) {
-			const frWidth = 1 / slidesPerView;
+			const frWidth = slidesPerView === 'auto' ? 1 : 1 / slidesPerView;
 			const {width} = swiper.current.getBoundingClientRect();
 			swiper.current.style.setProperty('--space-between', spaceBetween);
 			swiper.current.style.setProperty('--slides', blockCount);
