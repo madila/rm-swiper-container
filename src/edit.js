@@ -298,7 +298,7 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		breakpoints
 	} = attributes;
 
-	const [useBreakpoints, setUseBreakpoints] = useState(breakpoints.length > 0);
+	const [useBreakpoints, setUseBreakpoints] = useState(breakpoints && breakpoints.length > 0);
 
 	const [selectedSlidesPerView, setSelectedSlidesPerView] = useState(1);
 
