@@ -69,7 +69,7 @@ function ColorGroupControl( { accentColor, setAccentColor } ) {
  *
  * @return {JSX.Element}                The control group.
  */
-function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPerView, setSelectedSlidesPerView } ) {
+function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPerView, setSelectedSlidesPerView, useBreakpoints, setUseBreakpoints } ) {
 	const {
 		autoSlidesPerView,
 		spaceBetween,
@@ -82,12 +82,26 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 		autoPlayDelay,
 		centeredSlides,
 		shouldOverflow,
-		slidesPerView
+		slidesPerView,
+		breakpoints,
 	} = attributes;
 
 	const units = [
 		{ value: 'px', label: 'px', default: 0 }
 	];
+
+	const availableBreakpoints = [
+		480, 768, 1024, 1440
+	]
+
+	const defaultBreakpoints = {
+		480: { slidesPerView: slidesPerView || 'auto' },
+		768: { slidesPerView: slidesPerView || 'auto' },
+		1024: { slidesPerView: slidesPerView || 'auto' },
+		1440: { slidesPerView: slidesPerView || 'auto' },
+	}
+
+	const breakpointsConfig = breakpoints ? JSON.parse(breakpoints) : defaultBreakpoints;
 
 	return (
 		<InspectorControls>
@@ -105,6 +119,7 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 							setAttributes({slidesPerView: value ? 'auto' : selectedSlidesPerView});
 						}}
 					/>
+
 					{!autoSlidesPerView &&
 					<NumberControl
 						help="Please select the slides per view. 0 for auto"
@@ -122,6 +137,37 @@ function SwiperControl( { maxSlides, attributes, setAttributes, selectedSlidesPe
 							}
 						}}
 					/>}
+
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label="Use breakpoints?"
+						help="Toggle this to set different slides per view per screen size"
+						checked={ useBreakpoints }
+						onChange={ (value) => {
+							setUseBreakpoints(value);
+						}}
+					/>
+
+					{useBreakpoints && availableBreakpoints.map((breakpoint, index) =>
+						<NumberControl
+							isShiftStepEnabled={ true }
+							shiftStep={ 1 }
+							max={maxSlides}
+							min={ 1 }
+							labelPosition="top"
+							value={ breakpointsConfig.hasOwnProperty(breakpoint) ? breakpointsConfig[breakpoint].slidesPerView : 1 }
+							label={ __( `Slides per view until ${breakpoint}px` ) }
+							onChange={ (value) => {
+								const newBreakpoints = {...breakpointsConfig}
+								newBreakpoints[breakpoint] = {
+									slidesPerView: value
+								};
+								setAttributes({
+									breakpoints: JSON.stringify(newBreakpoints)
+								})
+							}}
+						/>)}
+
 
 					<ToggleControl
 						__nextHasNoMarginBottom
@@ -248,8 +294,11 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 		autoSlidesPerView,
 		slidesPerView,
 		accentColor,
-		shouldOverflow
+		shouldOverflow,
+		breakpoints
 	} = attributes;
+
+	const [useBreakpoints, setUseBreakpoints] = useState(breakpoints.length > 0);
 
 	const [selectedSlidesPerView, setSelectedSlidesPerView] = useState(1);
 
@@ -293,14 +342,29 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 
 	useLayoutEffect( () => {
 		if(swiper.current) {
-			const frWidth = slidesPerView === 'auto' ? 1 : 1 / slidesPerView;
+			let frWidth;
 			const {width} = swiper.current.getBoundingClientRect();
+			if(useBreakpoints) {
+				let perView = 1;
+				const deviceWith = window.innerWidth;
+				const breakpointsConfig = breakpoints ? JSON.parse(breakpoints) : {};
+				const breakpointsKeys = Object.keys(breakpointsConfig);
+				breakpointsKeys.forEach((value, index) => {
+					if(Number(value) < deviceWith) {
+						perView = breakpointsConfig[value].slidesPerView;
+					}
+				});
+				frWidth = perView === 'auto' ? 1 : 1 / perView;
+			} else {
+				frWidth = slidesPerView === 'auto' ? 1 : 1 / slidesPerView;
+			}
+
 			swiper.current.style.setProperty('--space-between', spaceBetween);
 			swiper.current.style.setProperty('--slides', blockCount);
 			swiper.current.style.setProperty('--per-view', `${frWidth}fr`);
 			swiper.current.style.setProperty('--slider-width', `${(width * frWidth) * blockCount}px`);
 		}
-	}, [ swiper, blockCount, spaceBetween, slidesPerView, autoSlidesPerView ] );
+	}, [ swiper, blockCount, useBreakpoints, breakpoints, spaceBetween, slidesPerView, autoSlidesPerView ] );
 
 	return (
 		<>
@@ -310,6 +374,8 @@ export default function Edit( {clientId, attributes, setAttributes} ) {
 				setAttributes={setAttributes}
 				selectedSlidesPerView={selectedSlidesPerView}
 				setSelectedSlidesPerView={setSelectedSlidesPerView}
+				useBreakpoints={useBreakpoints}
+				setUseBreakpoints={setUseBreakpoints}
 			/>
 			<ColorGroupControl
 				accentColor={accentColor}

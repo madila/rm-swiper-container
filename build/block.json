@@ -114,6 +114,12 @@
       "source": "attribute",
       "selector": "swiper-container",
       "attribute": "centered-slides"
+    },
+    "breakpoints": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "swiper-container",
+      "attribute": "breakpoints"
     }
   },
   "textdomain": "swiper-container",

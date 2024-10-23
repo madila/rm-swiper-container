@@ -31,7 +31,8 @@ export default function save( { attributes } ) {
 		loop,
 		pagination,
 		navigation,
-		scrollbar
+		scrollbar,
+		breakpoints
 	} = attributes;
 
 	let props = {
@@ -41,6 +42,10 @@ export default function save( { attributes } ) {
 		'centered-slides': centeredSlides ? centeredSlides.toString() : false,
 		'loop': loop,
 	};
+
+	if(breakpoints) {
+		props['breakpoints'] = breakpoints;
+	}
 
 	if(spaceBetween) {
 		props['space-between'] = spaceBetween;
