@@ -60,6 +60,9 @@
       "selector": "swiper-container",
       "attribute": "space-between"
     },
+    "accentColor": {
+      "type": "string"
+    },
     "autoPlay": {
       "type": "boolean",
       "source": "attribute",

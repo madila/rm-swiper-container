@@ -61,6 +61,7 @@ export default function save( { attributes } ) {
 
 	if(pagination) {
 		props['pagination'] = 'true';
+		props['pagination-clickable'] = 'true';
 	}
 
 	if(navigation) {
@@ -71,6 +72,7 @@ export default function save( { attributes } ) {
 		props['scrollbar'] = 'true';
 	}
 
+	console.log(accentColor, props.style);
 	if(accentColor) {
 		props.style = {
 			...props.style,
